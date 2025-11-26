@@ -1,0 +1,14 @@
+{
+  "tests": [
+    {
+      "name": "Run pytest tests",
+      "setup": "",
+      "run": "pytest -q --disable-warnings --maxfail=1",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 20,
+      "points": 100
+    }
+  ]
+}
