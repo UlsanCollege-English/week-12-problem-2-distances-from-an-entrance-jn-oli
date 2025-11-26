@@ -1,8 +1,8 @@
 name: Autograding Tests
 
 on:
-  push:
-  repository_dispatch:
+  push: {}
+  repository_dispatch: {}
 
 permissions:
   checks: write
@@ -23,8 +23,10 @@ jobs:
         id: tests
         uses: classroom-resources/autograding-python-grader@v1
         with:
+          # explicit test command so the runner produces results
+          test-command: "python -m pytest -q"
           setup-command: ""
-          timeout: "20"
+          timeout: "20m"
 
       - name: Autograding Reporter
         uses: classroom-resources/autograding-grading-reporter@v1
