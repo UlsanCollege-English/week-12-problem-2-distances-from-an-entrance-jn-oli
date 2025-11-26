@@ -19,14 +19,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
+
       - name: Run Python Grader
         id: tests
         uses: classroom-resources/autograding-python-grader@v1
         with:
-          # explicit test command so the runner produces results
-          test-command: "python -m pytest -q"
+          entryPoint: "python -m pytest tests/ -q --disable-warnings --maxfail=1"
           setup-command: ""
-          timeout: "20m"
+          timeout: 600   # 10 minutes in seconds
+          max-score: 100
 
       - name: Autograding Reporter
         uses: classroom-resources/autograding-grading-reporter@v1
