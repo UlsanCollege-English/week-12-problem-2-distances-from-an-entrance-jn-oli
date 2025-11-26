@@ -11,6 +11,7 @@ permissions:
 
 jobs:
   run-autograding-tests:
+    name: Run Autograding Tests
     runs-on: ubuntu-latest
     if: github.actor != 'github-classroom[bot]'
 
@@ -23,7 +24,7 @@ jobs:
         uses: classroom-resources/autograding-python-grader@v1
         with:
           setup-command: ""
-          timeout: 20
+          timeout: "20"
 
       - name: Autograding Reporter
         uses: classroom-resources/autograding-grading-reporter@v1
