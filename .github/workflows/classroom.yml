@@ -1,8 +1,8 @@
 name: Autograding Tests
 
 on:
-  push: {}
-  repository_dispatch: {}
+  push:
+  repository_dispatch:
 
 permissions:
   checks: write
@@ -11,7 +11,6 @@ permissions:
 
 jobs:
   run-autograding-tests:
-    name: Run Autograding Tests
     runs-on: ubuntu-latest
     if: github.actor != 'github-classroom[bot]'
 
@@ -19,16 +18,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set PYTHONPATH
-        run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
 
-      - name: Run Python Grader
+      - name: Run Pytest
         id: tests
-        uses: classroom-resources/autograding-python-grader@v1
+        uses: classroom-resources/autograding-command-grader@v1
         with:
-          entryPoint: "python -m pytest tests/ -q --disable-warnings --maxfail=1"
-          setup-command: ""
-          timeout: 600   # 10 minutes in seconds
+          test-name: "tests"
+          command: "pytest -q --disable-warnings --maxfail=1"
+          timeout: 600
           max-score: 100
 
       - name: Autograding Reporter
